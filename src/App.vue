@@ -1,5 +1,5 @@
 <script setup>
-import SidebarMenu from './components/SidebarMenu.vue';
+import SidebarMenu from './components/SideBarMenu.vue';
 </script>
 
 <template>
