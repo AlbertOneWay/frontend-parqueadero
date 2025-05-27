@@ -8,7 +8,7 @@
           <div class="flex-1 flex flex-col gap-4 overflow-y-auto">
             <div class="text-white w-full">
               <img
-                src="@/assets/img/ImageLogo.png"
+                src="./assets/img/ImageLogo.png"
                 alt="Logo"
                 class="w-4/5 h-full ml-2 rounded-full">
             </div>
