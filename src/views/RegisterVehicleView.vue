@@ -65,6 +65,7 @@ import axios from 'axios'
 import { useUserStore } from '@/stores/userStore'
 import { useRouter } from 'vue-router'
 
+const apiUrl = import.meta.env.VITE_API_URL;
 const userStore = useUserStore()
 const router = useRouter()
 
@@ -77,7 +78,7 @@ const vehiculos = ref<{ placa: string, tipo_vehiculo: string }[]>([])
 const cargarVehiculos = async () => {
   if (!userStore.user) return
   try {
-    const res = await axios.get(`http://localhost:8000/vehiculos/${userStore.user.telefono}`)
+    const res = await axios.get(`${apiUrl}/vehiculos/${userStore.user.telefono}`)
     vehiculos.value = res.data
   } catch (error) {
     console.error('Error cargando vehículos', error)
@@ -100,7 +101,7 @@ const registrarVehiculo = async () => {
   }
 
   try {
-    await axios.post('http://localhost:8000/vehiculo', {
+    await axios.post(`${apiUrl}/vehiculo`, {
       telefono: userStore.user.telefono,
       vehiculo: {
         placa: placa.value.toUpperCase(),

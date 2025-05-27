@@ -28,6 +28,7 @@ import { useRouter } from 'vue-router'
 import axios from 'axios'
 import { useUserStore } from '@/stores/userStore'
 
+const apiUrl = import.meta.env.VITE_API_URL;
 const nombre = ref('')
 const password = ref('')
 const mensaje = ref('')
@@ -36,7 +37,7 @@ const userStore = useUserStore()
 
 const login = async () => {
   try {
-    const res = await axios.post('http://localhost:8000/login', {
+    const res = await axios.post(`${apiUrl}/login`, {
       nombre: nombre.value,
       password: password.value
     })

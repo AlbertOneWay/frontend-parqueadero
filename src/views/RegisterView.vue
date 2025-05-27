@@ -30,6 +30,8 @@
 <script>
 import axios from 'axios';
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 export default {
   name: 'RegisterView',
   data() {
@@ -43,7 +45,7 @@ export default {
   methods: {
     async registrarUsuario() {
       try {
-        await axios.post('http://localhost:8000/usuario', {
+        await axios.post(`${apiUrl}/usuario`, {
           nombre: this.nombre,
           telefono: this.telefono,
           password: this.password

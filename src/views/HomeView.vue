@@ -55,6 +55,8 @@
 <script>
 import axios from "axios";
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
 export default {
   name: "HomeView",
   data() {
@@ -73,7 +75,7 @@ export default {
   methods: {
     async cargarDisponibilidad() {
       try {
-        const res = await axios.get("http://localhost:8000/disponibilidad");
+        const res = await axios.get(`${apiUrl}/disponibilidad`);
         this.disponibilidad = res.data;
         console.log("[INFO] Disponibilidad cargada:", this.disponibilidad);
       } catch (error) {
@@ -82,7 +84,7 @@ export default {
     },
     async cargarPicoYPlaca() {
       try {
-        const res = await axios.get("http://localhost:8000/pico-y-placa");
+        const res = await axios.get(`${apiUrl}/pico-y-placa`);
         this.picoPlaca = res.data;
       } catch (error) {
         console.error("[ERROR] No se pudo obtener pico y placa:", error);
@@ -92,7 +94,7 @@ export default {
       const usuario = JSON.parse(localStorage.getItem("usuario"));
       if (!usuario?.telefono) return;
       try {
-        const res = await axios.get(`http://localhost:8000/usuario/${usuario.telefono}/vehiculos-activos`);
+        const res = await axios.get(`${apiUrl}/usuario/${usuario.telefono}/vehiculos-activos`);
         this.vehiculosActivos = res.data;
       } catch (error) {
         console.error("[ERROR] No se pudo obtener vehículos activos:", error);
