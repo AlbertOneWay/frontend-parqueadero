@@ -69,10 +69,35 @@ export default {
   },
   mounted() {
     this.cargarDisponibilidad();
+    this.iniciarSSE(); 
     this.cargarPicoYPlaca();
     this.cargarVehiculosActivos();
   },
   methods: {
+      async iniciarSSE() {
+  const eventSource = new EventSource(`${apiUrl}/sse/disponibilidad`);
+
+  // ✅ Este evento se dispara cuando la conexión se abre correctamente
+  eventSource.onopen = () => {
+    console.log("[SSE] Conexión SSE abierta correctamente");
+  };
+
+  eventSource.onmessage = (event) => {
+    try {
+      this.disponibilidad = JSON.parse(event.data);
+      console.log("[SSE] Nueva disponibilidad:", this.disponibilidad);
+      this.cargarVehiculosActivos(); // Actualiza vehículos del usuario
+    } catch (e) {
+      console.error("[SSE] Error al parsear datos:", e);
+    }
+  };
+
+  eventSource.onerror = (error) => {
+    console.error("[SSE] Conexión cerrada o fallida:", error);
+    eventSource.close();
+  };
+}
+,
     async cargarDisponibilidad() {
       try {
         const res = await axios.get(`${apiUrl}/disponibilidad`);
