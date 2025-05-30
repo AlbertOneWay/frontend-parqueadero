@@ -9,6 +9,12 @@ import SidebarMenu from './components/SideBarMenu.vue';
       <RouterView />
     </div>
   </div>
+  <img
+      src="/assets/img/Logo_de_la_Universidad_de_Caldas.svg.png"
+      alt="Logo"
+      class="fixed right-6 bottom-6 w-20 h-20 rounded-full shadow-lg z-50"
+      style="pointer-events: none;"
+    />
 </template>
 
 <style>

@@ -61,11 +61,11 @@
         </span>
       </a>
     </li>
-    <li
-      v-for="(item, index) in menuItems"
-      :key="index"
-      class="group transition-all duration-200"
-    >
+ <li
+  v-for="(item, index) in menuItemsFiltered"
+  :key="index"
+  class="group transition-all duration-200"
+>
       <div
         :class="toggleSidebar ? 'flex flex-row items-start' : ''"
         class="font-medium cursor-pointer relative"
@@ -257,14 +257,6 @@ const props = defineProps({
 
 const currentPath = ref(window.location.pathname)
 
-// Obtener usuario del localStorage
-const cargarUsuario = () => {
-  const stored = localStorage.getItem('usuario')
-  if (stored) {
-    user.value = JSON.parse(stored)
-  }
-}
-
 function irALogin() {
   router.push('/login')
 }
@@ -283,49 +275,48 @@ function logout() {
 const menuItems = ref([
   {
     id: 1,
-    icon: '<span class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 18 18" class="w-4 h-4"><path d="M14 12a3 3 0 1 0-4.5 2.595V18l1.5-1.5 1.5 1.5v-3.405A3.01 3.01 0 0 0 14 12Zm-3 1.5c-.825 0-1.5-.675-1.5-1.5s.675-1.5 1.5-1.5 1.5.675 1.5 1.5-.675 1.5-1.5 1.5ZM11.307 0H4.25A2.257 2.257 0 0 0 2 2.25V18h6v-1.5H3.5V2.25c0-.413.337-.75.75-.75h6v5.25h5.25v9.75H14V18h3V5.692L11.307 0Zm.443 2.558 2.693 2.692H11.75V2.558Z"></path></svg></span>',
-    title: 'Job',
+    icon: '<span class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 18 18" class="w-4 h-4"><path d="M3 3h12v2H3V3zm0 4h8v2H3V7zm0 4h12v2H3v-2zm0 4h8v2H3v-2z"/></svg></span>',
+    title: 'Vehículos',
     link: '',
     subItems: [
       {
-        id: 'job-search',
-        title: 'Job Search',
+        id: 'registrar-vehiculo',
+        title: 'Registrar Vehículo',
+        link: '/registrar-vehiculo',
         sub_text: '',
-        link: '#',
         secondaryItems: [],
         secondary_open: false,
         state: true,
-        count: 0,
+        count: 0
       },
       {
-        id: 'job-list',
-        title: 'Job List',
+        id: 'historial-vehiculos',
+        title: 'Historial de mis Vehículos',
+        link: '/historial-vehiculos',
         sub_text: '',
-        link: '#',
         secondaryItems: [],
         secondary_open: false,
         state: true,
-        count: 0,
-      },
+        count: 0
+      }
     ],
     open: false,
-    new: true,
+    new: false,
     count: 0,
     manuallyToggled: false,
+    visible: () => !!user.value
   },
   {
-  id: 2,
-  icon: '<span class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 18 18" class="w-4 h-4"><path d="M3 3h12v2H3V3zm0 4h8v2H3V7zm0 4h12v2H3v-2zm0 4h8v2H3v-2z"/></svg></span>',
-  title: 'Registrar Vehículo',
-  link: '/registrar-vehiculo',
-  isruta: true,
-    ruta: '/registrar-vehiculo',
-  subItems: [],
-  open: false,
-  new: false,
-  count: 0,
-  manuallyToggled: false,
-}
+    id: 2,
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" class="w-4 h-4"><path d="M8 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1Zm0 1a6 6 0 1 0 0 12A6 6 0 0 0 8 2Zm-.5 3h1v2h2v1h-2v2h-1V8H5V7h2.5V5Z"/></svg>',
+    title: 'Registrar Evento',
+    link: '/registrar-evento',
+    subItems: [],
+    open: false,
+    isruta: true,
+    ruta: '/registrar-evento',
+    visible: () => user.value?.rol === 'admin'
+  }
 ])
 
 const isActive = (route) => {
@@ -370,6 +361,12 @@ const toggleSecondaryAccordion = (id) => {
   }
 }
 
+const menuItemsFiltered = computed(() =>
+  menuItems.value.filter(item =>
+    typeof item.visible === 'function' ? item.visible() : true
+  )
+)
+
 const openParentAccordionIfActiveSubItem = () => {
   menuItems.value.forEach((item) => {
     if (!item.manuallyToggled) {
@@ -388,7 +385,6 @@ watch(menuItems, () => {
 }, { deep: true })
 
 onMounted(() => {
-  cargarUsuario()
   openParentAccordionIfActiveSubItem()
 })
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+  <div class="min-h-screen flex items-center justify-center p-6">
     <div class="bg-white shadow-lg rounded-xl p-8 w-full max-w-md">
       <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Registrar Vehículo</h2>
 
