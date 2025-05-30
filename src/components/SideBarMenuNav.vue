@@ -71,8 +71,9 @@
         class="font-medium cursor-pointer relative"
         @click="toggleAccordion(index)"
       >
-        <a
-          :href="item.link"
+        <button
+  type="button"
+  @click="item.link && router.push(item.link)"
           :class="[
             !toggleSidebar ? 'rounded-[8px] ml-5 w-8 h-8' : 'pl-5 h-10 w-10',
             isAnySubItemActive(item.subItems)
@@ -90,7 +91,7 @@
           <span
             v-if="!toggleSidebar && item.count"
             class="absolute top-3 -left-0.5 w-1.5 h-1.5 rounded-full bg-red-500 flex items-center justify-center"></span>
-        </a>
+        </button>
 
         <span
           class="whitespace-nowrap"
@@ -165,7 +166,7 @@
                 >
                   <div
                     class="w-full cursor-pointer"
-                    @click.prevent="toggleSecondaryAccordion(subItem.id)"
+                    @click="router.push(subItem.link)"
                   >
                     <span class="flex space-x-2 text-xsm/4 p-3 transition-all duration-300 hover:bg-[rgba(248,250,252,0.20)] hover:text-white">
                       <span class="block whitespace-nowrap truncate">
@@ -176,8 +177,9 @@
                 </div>
 
                 <template v-else>
-                  <a
-                    :href="subItem.link"
+                  <button
+  type="button"
+  @click="router.push(subItem.link)"
                     class="flex flex-wrap text-sm p-3 transition-all duration-300 hover:text-white relative"
                     :class="[
                       toggleSidebar ? 'pl-11' : '',
@@ -197,7 +199,7 @@
                       class="h-[18px] w-7 absolute top-3 right-3 bg-red-500 rounded flex items-center justify-center text-white font-bold text-[10px]">
                       {{ subItem.count }}
                     </span>
-                  </a>
+                  </button>
                 </template>
 
                 <div
@@ -217,13 +219,14 @@
                       v-for="secondaryItem in subItem.secondaryItems"
                       :key="secondaryItem.id"
                     >
-                      <a
-                        :href="secondaryItem.link"
+                      <<button
+  type="button"
+  @click="router.push(secondaryItem.link)"
                         class="flex space-x-2 text-xsm/4 p-2 transition-all duration-300 hover:bg-[rgba(248,250,252,0.20)] rounded hover:text-white">
                         <span class="block whitespace-nowrap truncate">
                           {{ secondaryItem.title }}
                         </span>
-                      </a>
+                      </button>
                     </li>
                   </ul>
                 </div>

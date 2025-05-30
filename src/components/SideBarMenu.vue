@@ -98,28 +98,7 @@ const isMobile = ref(false);
 
 const currentPath = ref(window.location.pathname);
 const menuItems = ref([
-  {
-    id: 1,
-    icon: '<span class="flex items-center">...</span>', // mantén tu SVG aquí
-    title: 'Settings',
-    link: '',
-    subItems: [
-      {
-        id: 'account',
-        title: 'Account',
-        link: '#',
-        state: true,
-        count: 0,
-      },
-      {
-        id: 'billing-information',
-        title: 'Billing',
-        link: '#',
-        state: true,
-        count: 0,
-      },
-    ],
-  },
+  
 ]);
 
 const updateIsMobile = () => {
