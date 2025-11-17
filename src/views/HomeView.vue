@@ -14,7 +14,7 @@
             <div>
             <p class="text-lg font-medium text-blue-900">Carros</p>
             <p class="text-3xl font-bold text-blue-800">
-              {{ disponibilidad.puestos_carro_disponibles }}/24
+              {{ disponibilidad.puestos_carro_disponibles }}/4
             </p>
             </div>
           </div>
@@ -25,7 +25,7 @@
 <div>
             <p class="text-lg font-medium text-green-900">Motos</p>
             <p class="text-3xl font-bold text-green-800">
-              {{ disponibilidad.puestos_moto_disponibles }}/50
+              {{ disponibilidad.puestos_moto_disponibles }}/5
             </p>
             </div>
           </div>
